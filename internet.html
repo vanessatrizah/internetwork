@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task List</title>
+  </head>
+  <body>
+    <h1>Task List</h1>
+
+    <form id="taskForm">
+      <label for="newTask">New Task:</label>
+      <input type="text" id="newTask" placeholder="Enter your task" />
+      <button type="submit" id="submitBtn" disabled>Submit</button>
+    </form>
+
+    <ul id="taskList"></ul>
+
+    <script>
+      // Query for the submit button and input task field once
+      const submitBtn = document.getElementById("submitBtn");
+      const newTaskInput = document.getElementById("newTask");
+      const taskList = document.getElementById("taskList");
+
+      // Listen for input to be typed into the input field
+      newTaskInput.addEventListener("input", function (e) {
+        if (e.target.value.length > 0) {
+          submitBtn.disabled = false;
+        } else {
+          submitBtn.disabled = true;
+        }
+        var task = e.target.value;
+        console.log(task);
+        return task;
+      });
+
+      // Listen for submission of form
+      document
+        .getElementById("taskForm")
+        .addEventListener("submit", function (event) {
+          // Prevent the default submission of the form
+          event.preventDefault();
+
+          var taskItem = document.createElement("li");
+          taskItem.innerHTML = newTaskInput.value;
+
+          // Add new element to our unordered list
+          taskList.appendChild(taskItem);
+
+          // Clear the input field
+          newTaskInput.value = "";
+
+          // Disable the submit button after submitting
+          submitBtn.disabled = true;
+        });
+    </script>
+  </body>
+</html>
